@@ -1,11 +1,11 @@
 import { MouseEvent, memo, useEffect, useState } from 'react';
 const MOVE = "move"
-import LetterNotation from './components/LetterNotation';
-import LegalMoveIndicator from './components/LegalMoveIndicator';
-import ChessSquare from './components/ChessSquare';
-import NumberNotation from './components/NumberNotation';
-import { drawArrow } from './utils/canvas';
-import useWindowSize from './hooks/useWindowSize';
+import LegalMoveIndicator from './LegalMoveIndicator';
+import ChessSquare from './ChessSquare';
+import LetterNotation from './LetterNotation';
+import NumberNotation from './NumberNotation';
+import { drawArrow } from '../utils/canvas';
+import useWindowSize from '../hooks/useWindowSize';
 
 
 import Confetti from 'react-confetti';
@@ -13,7 +13,8 @@ import Confetti from 'react-confetti';
 // import CaptureSound from '/capture.wav';
 
 import { useRecoilState } from 'recoil';
-import { isBoardFlippedAtom, movesAtom, userSelectedMoveIndexAtom } from './store';
+import { isBoardFlippedAtom, movesAtom, userSelectedMoveIndexAtom } from '../store';
+import { sendEvent } from '../utils/ws';
 
 export function isPromoting(chess, from, to) {
   if (!from) {
@@ -287,21 +288,24 @@ export const Chessboard = memo(({
                               if (moveResult?.captured) {
                                 // captureAudio.play();
                               }
+                              // socket.send(
+                              //   JSON.stringify({
+                              //     type: MOVE,
+                              //     payload: {
+                              //       gameId,
+                              //       move: moveResult,
+                              //     },
+                              //   }),
+                              // );
+
+                              sendEvent(socket, MOVE, {from, to: squareRepresentation, gameId})
                               // setMoves((prev) => [...prev, moveResult]);
                               setFrom(null);
                               setLegalMoves([]);
                               if (moveResult.san.includes('#')) {
                                 setGameOver(true);
                               }
-                              socket.send(
-                                JSON.stringify({
-                                  type: MOVE,
-                                  payload: {
-                                    gameId,
-                                    move: moveResult,
-                                  },
-                                }),
-                              );
+                              
                             }
                           } catch (e) {
                             console.log('e', e);

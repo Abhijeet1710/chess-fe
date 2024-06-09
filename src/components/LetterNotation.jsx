@@ -1,4 +1,4 @@
-const LetterNotation = ({
+export const LetterNotation = ({
     label,
     isMainBoxColor,
   }) => {

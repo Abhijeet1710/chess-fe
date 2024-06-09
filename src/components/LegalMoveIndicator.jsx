@@ -1,4 +1,4 @@
-const LegalMoveIndicator = ({
+export const LegalMoveIndicator = ({
     isPiece,
     isMainBoxColor,
   }) => {

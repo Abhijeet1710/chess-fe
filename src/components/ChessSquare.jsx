@@ -1,7 +1,6 @@
-const ChessSquare = ({
+export const ChessSquare = ({
   square,
 }) => {
-  console.log("Insidfe ChessSqaure");
   return (
     <div className="h-full justify-center flex flex-col ">
       {square ? (

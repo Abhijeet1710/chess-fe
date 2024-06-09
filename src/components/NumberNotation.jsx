@@ -1,4 +1,4 @@
-const NumberNotation = ({
+export const NumberNotation = ({
     label,
     isMainBoxColor,
   }) => {

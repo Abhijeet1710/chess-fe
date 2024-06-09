@@ -1,17 +1,36 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
+import { useUser } from "./useUser";
+import { BLACK, INIT, MOVE, STARTED } from "../utils/constants";
+import { sendEvent } from "../utils/ws";
 
-const WS_URL = import.meta.env.VITE_APP_WS_URL ?? 'ws://localhost:8080';
+const WS_URL = "ws://localhost:8080";
+
+const user = {
+  userName: "Abhijeet",
+  token: "1234kkiioo",
+};
 
 export const useSocket = () => {
   const [socket, setSocket] = useState(null);
-  const user = useUser();
+  const [gameDetails, setGameDetails] = useState(null)
+  // const user = useUser();
 
   useEffect(() => {
-    if (!user) return;
-    const ws = new WebSocket(`${WS_URL}?token=${user.token}`);
+    const ws = new WebSocket(`${WS_URL}`);
+
+    ws.onmessage = (data) => {
+      const event = JSON.parse(data.data)
+      console.log(`${event.type} : ${JSON.stringify(event.payload)}`);
+
+      if(event.type == STARTED) {
+        setGameDetails({myColor: event.payload.message, gameId: event.payload.gameId})
+      }
+    };
 
     ws.onopen = () => {
       setSocket(ws);
+
+      sendEvent(ws, INIT, {userName: user.userName} )
     };
 
     ws.onclose = () => {
@@ -23,5 +42,5 @@ export const useSocket = () => {
     };
   }, [user]);
 
-  return socket;
+  return !gameDetails ? {} : {gameId: gameDetails.gameId, myColor: gameDetails.myColor == BLACK ? "b" : "w", socket};
 };
