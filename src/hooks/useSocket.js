@@ -14,9 +14,11 @@ const user = {
 };
 
 export const useSocket = (setChess, setBoard, userName) => {
+  console.log("In useSocket");
+  if(!userName || userName == '') return;
+  //aa : 29323c4e-5901-4662-901e-34ef05953e63
   const [socket, setSocket] = useState(null);
   const [gameDetails, setGameDetails] = useState(null)
-  const [moves, setMoves] = useRecoilState(movesAtom);
 
   // const user = useUser();
 
@@ -41,7 +43,6 @@ export const useSocket = (setChess, setBoard, userName) => {
 
     ws.onopen = () => {
       setSocket(ws);
-
       sendEvent(ws, INIT, {userName} )
     };
 

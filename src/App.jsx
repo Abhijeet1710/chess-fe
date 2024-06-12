@@ -6,6 +6,7 @@ import { Layout } from "./layout";
 import { Landing } from "./pages/Landing";
 import Game from "./pages/Game";
 import { Login } from "./pages/Login";
+import { GameHandler } from "./pages/GameHandler";
 
 
 export default function App() {
@@ -31,7 +32,7 @@ function AuthApp() {
         />
         <Route
           path="/game/:gameId"
-          element={<Layout children={<Game />} />}
+          element={<Layout children={<GameHandler />} />}
         />
       </Routes>
     </BrowserRouter>
