@@ -1,31 +1,39 @@
-import React, { useEffect, useState } from "react";
-import { Chess } from "chess.js";
-import { Chessboard } from "./components/Chessboard";
-import { useSocket } from "./hooks/useSocket";
+import React, { Suspense } from "react";
+import { RecoilRoot } from "recoil";
+import { Loader } from "./components/Loader";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Layout } from "./layout";
+import { Landing } from "./pages/Landing";
+import Game from "./pages/Game";
+import { Login } from "./pages/Login";
+
 
 export default function App() {
-  const [chess, setChess] = useState(new Chess());
-  const [board, setBoard] = useState(chess.board());
-  const { socket, myColor, gameId } = useSocket(setChess, setBoard)
-
-  // if (!socket || !chess) return <div>Connecting to the backend..</div>;
-
-
-
-
-  if(!myColor) return <div>Waiting for an Apponent...</div>
-
   return (
-    <div>
-      <Chessboard
-        gameId={gameId}
-        started={true}
-        myColor={myColor}
-        chess={chess}
-        board={board}
-        socket={socket}
-        setBoard={setBoard}
-      />
+    <div className="min-h-screen bg-stone-800">
+      <RecoilRoot>
+        <Suspense fallback={<Loader />}>
+          <AuthApp />
+        </Suspense>
+      </RecoilRoot>
     </div>
+  );
+}
+
+function AuthApp() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout children={<Landing />} />} />
+        <Route
+          path="/login"
+          element={<Login />}
+        />
+        <Route
+          path="/game/:gameId"
+          element={<Layout children={<Game />} />}
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }

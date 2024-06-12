@@ -13,7 +13,7 @@ const user = {
   token: "1234kkiioo",
 };
 
-export const useSocket = (setChess, setBoard) => {
+export const useSocket = (setChess, setBoard, userName) => {
   const [socket, setSocket] = useState(null);
   const [gameDetails, setGameDetails] = useState(null)
   const [moves, setMoves] = useRecoilState(movesAtom);
@@ -42,7 +42,7 @@ export const useSocket = (setChess, setBoard) => {
     ws.onopen = () => {
       setSocket(ws);
 
-      sendEvent(ws, INIT, {userName: user.userName} )
+      sendEvent(ws, INIT, {userName} )
     };
 
     ws.onclose = () => {
