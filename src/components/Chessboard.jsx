@@ -1,5 +1,4 @@
 import { MouseEvent, memo, useEffect, useState } from 'react';
-const MOVE = "move"
 import LegalMoveIndicator from './LegalMoveIndicator';
 import ChessSquare from './ChessSquare';
 import LetterNotation from './LetterNotation';
@@ -15,6 +14,7 @@ import Confetti from 'react-confetti';
 import { useRecoilState } from 'recoil';
 import { isBoardFlippedAtom, movesAtom, userSelectedMoveIndexAtom } from '../store';
 import { sendEvent } from '../utils/ws';
+import { MOVE, MOVE_STATUS } from '../utils/constants';
 
 export function isPromoting(chess, from, to) {
   if (!from) {
@@ -35,10 +35,7 @@ export function isPromoting(chess, from, to) {
     return false;
   }
 
-  return chess
-    .history({ verbose: true })
-    .map((it) => it.to)
-    .includes(to);
+  return true
 }
 
 export const Chessboard = memo(({
@@ -50,7 +47,6 @@ export const Chessboard = memo(({
   socket,
   setBoard,
 }) => {
-  console.log("chessboard reloaded")
   const { height, width } = useWindowSize();
 
   const [isFlipped, setIsFlipped] = useRecoilState(isBoardFlippedAtom);
@@ -172,22 +168,23 @@ export const Chessboard = memo(({
     }
   }, [userSelectedMoveIndex]);
 
-  useEffect(() => {
-    if (userSelectedMoveIndex !== null) {
-      chess.reset();
-      moves.forEach((move) => {
-        chess.move({ from: move.from, to: move.to });
-      });
-      setBoard(chess.board());
-      setUserSelectedMoveIndex(null);
-    } else {
-      setBoard(chess.board());
-    }
-  }, [moves]);
+  // useEffect(() => {
+  //   if (userSelectedMoveIndex !== null) {
+  //     chess.reset();
+  //     moves.forEach((move) => {
+  //       chess.move({ from: move.from, to: move.to });
+  //     });
+  //     setBoard(chess.board());
+  //     setUserSelectedMoveIndex(null);
+  //   } else {
+  //     setBoard(chess.board());
+  //   }
+  // }, [moves]);
 
   return (
     <>
       {gameOver && <Confetti />}
+      <div className='text-white'>{isMyTurn ? "Yout Turn" : "Oppenents Turn"}</div>
       <div className="flex relative">
         <div className="text-white-200 rounded-md overflow-hidden">
           {(isFlipped ? board.slice().reverse() : board).map((row, i) => {
@@ -225,15 +222,15 @@ export const Chessboard = memo(({
                         if (!started) {
                           return;
                         }
-                        if (userSelectedMoveIndex !== null) {
-                          chess.reset();
-                          moves.forEach((move) => {
-                            chess.move({ from: move.from, to: move.to });
-                          });
-                          setBoard(chess.board());
-                          setUserSelectedMoveIndex(null);
-                          return;
-                        }
+                        // if (userSelectedMoveIndex !== null) {
+                        //   chess.reset();
+                        //   moves.forEach((move) => {
+                        //     chess.move({ from: move.from, to: move.to });
+                        //   });
+                        //   setBoard(chess.board());
+                        //   setUserSelectedMoveIndex(null);
+                        //   return;
+                        // }
                         if (!from && square?.color !== chess.turn()) return;
                         if (!isMyTurn) return;
                         if (from != squareRepresentation) {
@@ -267,27 +264,23 @@ export const Chessboard = memo(({
                           );
                         } else {
                           try {
-                            let moveResult;
+                            // let moveResult;
                             if (
                               isPromoting(chess, from, squareRepresentation)
                             ) {
-                              moveResult = chess.move({
-                                from,
-                                to: squareRepresentation,
-                                promotion: 'q',
-                              });
+                              sendEvent(socket, MOVE, {from, to: squareRepresentation, promotion: "q", gameId})
+                              setFrom(null);
                             } else {
-                              moveResult = chess.move({
-                                from,
-                                to: squareRepresentation,
-                              });
+                              sendEvent(socket, MOVE, {from, to: squareRepresentation, gameId})
                             }
-                            if (moveResult) {
+                            setFrom(null);
+
+                            // if (moveResult) {
                               // moveAudio.play();
 
-                              if (moveResult?.captured) {
+                              // if (moveResult?.captured) {
                                 // captureAudio.play();
-                              }
+                              // }
                               // socket.send(
                               //   JSON.stringify({
                               //     type: MOVE,
@@ -298,15 +291,15 @@ export const Chessboard = memo(({
                               //   }),
                               // );
 
-                              sendEvent(socket, MOVE, {from, to: squareRepresentation, gameId})
+                              // sendEvent(socket, MOVE, {from, to: squareRepresentation, gameId})
                               // setMoves((prev) => [...prev, moveResult]);
                               setFrom(null);
-                              setLegalMoves([]);
-                              if (moveResult.san.includes('#')) {
-                                setGameOver(true);
-                              }
+                              // setLegalMoves([]);
+                              // if (moveResult.san.includes('#')) {
+                              //   setGameOver(true);
+                              // }
                               
-                            }
+                            // }
                           } catch (e) {
                             console.log('e', e);
                           }
