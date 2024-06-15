@@ -2,7 +2,7 @@ import React from 'react'
 
 const Waitopponent = () => {
   return (
-    <div>Waiting for an Opponent !</div>
+    <div className='text-6xl text-green-500'> Waiting for an Opponent to Join...</div>
   )
 }
 

@@ -191,21 +191,21 @@ export default function Game() {
   return (
     <div>
       {!started && (
-        <div className="">
+        <div className="pt-40 flex justify-center align-middle">
           {added ? (
             <div className="text-white">
               <Waitopponent />
             </div>
           ) : (
             gameId === "random" && (
-              <Button
+              <div className="font-bold text-white text-4xl bg-green-500 px-24 py-8 rounded cursor-pointer"
                 onClick={() => {
-                  console.log("UserNam", user.userName);
+                  console.log("UserName", user.userName);
                   sendEvent(socket, INIT, { userName: user.userName });
                 }}
               >
                 Play
-              </Button>
+              </div>
             )
           )}
         </div>
