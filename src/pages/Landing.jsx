@@ -4,21 +4,21 @@ export const Landing = () => {
   return (
     <div className="pt-40 max-w-full h-screen">
       <div className="flex flex-col md:flex-row md:w-3/4 mx-auto">
-        <div className="w-full flex flex-col md:flex-row md:justify-between">
+        <div className="w-full flex flex-col md:flex-row md:justify-around">
           <div>
             <PlayCard />
           </div>
-          <div className="">
+          <div className="flex justify-self-center">
             <img
-              className="rounded-xl md:h-4/6 hidden md:block"
-              src="https://res.cloudinary.com/dcugqfvvg/image/upload/v1713647295/standardboard.1d6f9426_asqzum.png"
+              className="h-[500px] rounded-xl hidden md:block"
+              src="../src/assets/chessboard.png"
               alt="chess-board"
             />
           </div>
         </div>
       </div>
       <div>
-        <div className="mt-8 md:mt-0 bg-[#302f2a] w-[96%] max-w-screen-lg mx-auto px-6 md:px-14 py-14 rounded-2xl md:rounded-[36px]">
+        <div className="mt-8 md:mt-16 bg-[#302f2a] w-[96%] max-w-screen-lg mx-auto px-6 md:px-14 py-14 rounded-2xl md:rounded-[36px]">
           <div className="lg:grid grid-cols-[45%,1fr] gap-28">
             <div className="rounded-xl">
               <img
