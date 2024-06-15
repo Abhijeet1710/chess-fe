@@ -32,7 +32,7 @@ function AuthApp() {
         />
         <Route
           path="/game/:gameId"
-          element={<Layout children={<GameHandler />} />}
+          element={<GameHandler />}
         />
       </Routes>
     </BrowserRouter>

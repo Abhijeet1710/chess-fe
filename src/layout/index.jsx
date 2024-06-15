@@ -4,10 +4,10 @@ import Navbar from '../components/Navbar';
 export const Layout = ({ children }) => {
   return (
     <>
-      {/* <Navbar /> */}
-      <div className="flex h-screen border-collapse overflow-hidden">
+      <Navbar />
+      <div className="">
         {/* <Sidebar /> */}
-        <main className="flex-1 overflow-y-auto overflow-x-hidden pt-16 bg-secondary/10 pb-1 chess-board">
+        <main className="">
           {children}
         </main>
       </div>
@@ -15,3 +15,5 @@ export const Layout = ({ children }) => {
     </>
   );
 };
+
+// main : flex-1 overflow-y-auto overflow-x-hidden pt-16 bg-secondary/10 pb-1 chess-board

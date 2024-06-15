@@ -1,21 +1,23 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '../shardcn/card';
-import chessIcon from '../../public/chess.png';
-import computerIcon from '../../public/computer.png';
-import lightningIcon from '../../public/lightning-bolt.png';
-import friendIcon from '../../public/friendship.png';
-import tournamentIcon from '../../public/trophy.png';
-import variantsIcon from '../../public/strategy.png';
-import GameModeComponent from './GameModeComponent';
-import { Button } from './Button';
+} from "../shardcn/card";
+import chessIcon from "../../public/chess.png";
+import computerIcon from "../../public/computer.png";
+import lightningIcon from "../../public/lightning-bolt.png";
+import friendIcon from "../../public/friendship.png";
+import tournamentIcon from "../../public/trophy.png";
+import variantsIcon from "../../public/strategy.png";
+import GameModeComponent from "./GameModeComponent";
+import { Button } from "./Button";
 
 export function PlayCard() {
+  const navigate = useNavigate()
+
   const gameModeData = [
     {
       icon: (
@@ -25,10 +27,10 @@ export function PlayCard() {
           alt="online"
         />
       ),
-      title: 'Play Online',
-      description: 'Play vs a Person of Similar Skill',
+      title: "Play Online",
+      description: "Play vs a Person of Similar Skill",
       onClick: () => {
-        navigate('/game/random');
+        navigate("/game/random");
       },
       disabled: false,
     },
@@ -82,18 +84,69 @@ export function PlayCard() {
     // },
   ];
 
-  const navigate = useNavigate();
   return (
-    // <Card className="bg-transparent border-none">
-    //   <CardContent className="grid gap-2 cursor-pointer shadow-md mt-1">
-    //     {gameModeData.map((data) => {
-    //       return <GameModeComponent {...data} key={data.title}/>;
-    //     })}
-    //   </CardContent>
-    // </Card>
+    <div>
+      <div className="text-white">
+        <span className="text-6xl font-bold">Your Ultimate</span>
+        <br></br>
+        <span className="text-9xl font-bold">Chess</span>
+        <br></br>
+        <span className="text-6xl font-bold">Destination</span> <br></br>
+        <div className="mt-6">
+          <span className="text-lg">
+            Chess.100x is your premier destination for <br></br> mastering the
+            timeless game of chess. <br></br> Whether you're a beginner looking
+            to learn the basics or an <br></br> experienced player aiming to
+            sharpen your skills.
+          </span>
+        </div>
+      </div>
+      <button
+      onClick={() => navigate("/login")} 
+      className="px-8 py-4 text-2xl bg-green-500 text-white font-bold mt-6 text-black rounded-2xl w-full text-3xl flex gap-10 items-center justify-center opacity-90 transition hover:opacity-100">
+        <img
+          className="w-16 h-16"
+          src="https://res.cloudinary.com/dcugqfvvg/image/upload/v1713650980/chess-solid-svgrepo-com_qbosf3.svg"
+          alt="icon"
+        />
+        <p class="text-4xl">Play Online</p>
+      </button>
 
-    <Button className="px-8" onClick={() => {
-      navigate("/game/random")
-    }}> Play Online </Button>
+      <div>
+        {/* <div class="mt-32 bg-[#262522] w-[96%] max-w-screen-lg mx-auto px-14 py-14 rounded-[36px]">
+          <div class="lg:grid grid-cols-[45%,1fr] gap-28">
+            <div class="rounded-xl">
+              <img
+                src="https://res.cloudinary.com/dcugqfvvg/image/upload/v1713657312/undraw_questions_re_1fy7_kqjpu3.svg"
+                alt="chess-board"
+              />
+            </div>
+            <div class="mt-16 lg:mt-0">
+              <h1 class="text-6xl text-white font-bold text-left mt-[-10px]">
+                Found an Issue!
+              </h1>
+              <p class="text-xl mt-6 text-white">
+                Please create an issue in our github website below. You are also
+                invited to contribute on the project.
+              </p>
+              <a
+                href="https://github.com/code100x/chess/issues"
+                target="_blank"
+                class="mt-10 text-white rounded-2xl px-4 py-4 border border-slate-400 bg-transparent w-full text-2xl flex gap-10 items-center justify-center"
+              >
+                <img
+                  class="w-16 h-16"
+                  src="https://res.cloudinary.com/dcugqfvvg/image/upload/v1713657100/github-svgrepo-com_uosbko.svg"
+                  alt="icon"
+                />
+                <p class="text-4xl">Github</p>
+              </a>
+            </div>
+          </div>
+        </div> */}
+
+
+      </div>
+    </div>
   );
 }
