@@ -4,8 +4,8 @@ import Navbar from '../components/Navbar';
 export const Layout = ({ children }) => {
   return (
     <>
-      {/* <Navbar /> */}
-      <div className="flex h-screen border-collapse overflow-hidden">
+      <Navbar />
+      <div className="">
         {/* <Sidebar /> */}
         <main className="">
           {children}

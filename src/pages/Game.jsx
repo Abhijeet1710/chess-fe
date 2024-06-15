@@ -79,14 +79,14 @@ export default function Game() {
         case MOVE_STATUS:
           try {
             const {
-              status,
+              success,
               move,
               player1TimeConsumed,
               player2TimeConsumed,
               fen,
             } = event.payload;
 
-            if (status) {
+            if (success) {
               if (isPromoting(chess, move.from, move.to)) {
                 chess.move({
                   from: move.from,
