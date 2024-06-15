@@ -42,6 +42,7 @@ export const Chessboard = memo(({
   gameId,
   started,
   myColor,
+  players,
   chess,
   board,
   socket,
@@ -184,7 +185,9 @@ export const Chessboard = memo(({
   return (
     <>
       {gameOver && <Confetti />}
-      <div className='text-white'>{isMyTurn ? "Yout Turn" : "Oppenents Turn"}</div>
+
+      <div className='text-white' >{myColor == "b" ? players.whitePlayer : players.blackPlayer}</div>
+      
       <div className="flex relative">
         <div className="text-white-200 rounded-md overflow-hidden">
           {(isFlipped ? board.slice().reverse() : board).map((row, i) => {
@@ -369,6 +372,9 @@ export const Chessboard = memo(({
           onMouseUp={(e) => e.preventDefault()}
         ></canvas>
       </div>
+
+      <div className='text-white' >{myColor == "b" ? players.blackPlayer : players.whitePlayer}</div>
+      <div className='text-white'>{isMyTurn ? "Yout Turn" : "Opponents Turn"}</div>
     </>
   );
 });

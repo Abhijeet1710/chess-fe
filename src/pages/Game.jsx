@@ -200,6 +200,7 @@ export default function Game() {
             gameId === "random" && (
               <Button
                 onClick={() => {
+                  console.log("UserNam", user.userName);
                   sendEvent(socket, INIT, { userName: user.userName });
                 }}
               >
@@ -214,6 +215,7 @@ export default function Game() {
           gameId={gameId}
           started={started}
           myColor={gameMetadata.myColor}
+          players={gameMetadata}
           chess={chess}
           board={board}
           socket={socket}
