@@ -11,7 +11,7 @@ import { GameHandler } from "./pages/GameHandler";
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-stone-800">
+    <div className="min-h-screen bg-stone-800 px-4">
       <RecoilRoot>
         <Suspense fallback={<Loader />}>
           <AuthApp />

@@ -18,7 +18,7 @@ export const Landing = () => {
         </div>
       </div>
       <div>
-        <div className="bg-[#302f2a]  w-[96%] max-w-screen-lg mx-auto px-14 py-14 rounded-[36px]">
+        <div className="mt-8 md:mt-0 bg-[#302f2a] w-[96%] max-w-screen-lg mx-auto px-6 md:px-14 py-14 rounded-2xl md:rounded-[36px]">
           <div className="lg:grid grid-cols-[45%,1fr] gap-28">
             <div className="rounded-xl">
               <img
@@ -44,7 +44,7 @@ export const Landing = () => {
                   src="https://res.cloudinary.com/dcugqfvvg/image/upload/v1713657100/github-svgrepo-com_uosbko.svg"
                   alt="icon"
                 />
-                <p className="text-4xl ">Github</p>
+                <p className="text-2xl md:text-4xl">Github</p>
               </a>
             </div>
           </div>
