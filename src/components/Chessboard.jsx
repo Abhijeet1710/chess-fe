@@ -171,14 +171,27 @@ export const Chessboard = memo(
     //     setBoard(chess.board());
     //   }
     // }, [moves]);
-
     return (
       <>
         {gameOver && <Confetti />}
 
         <div className="w-full h-full">
-          <div className="text-white">
-            {myColor == "b" ? players.whitePlayer : players.blackPlayer}
+          <div className="flex justify-between py-2">
+            <div className="text-white">
+              <div className="flex">
+                <img
+                  className="mr-4"
+                  alt="Guest0743251690"
+                  src={`https://www.chess.com/bundles/web/images/${myColor == "b" ? "white" : "black"}_400.png`}
+                  width="40"
+                  height="40"
+                />
+                {myColor == "b" ? players.whitePlayer : players.blackPlayer}
+              </div>
+            </div>
+            <div className="text-white">
+              {isMyTurn ? "Yout Turn" : "Opponents Turn"}
+            </div>
           </div>
 
           <div className="flex relative pl-8 md:pl-0">
@@ -397,11 +410,22 @@ export const Chessboard = memo(
             ></canvas>
           </div>
 
-          <div className="text-white">
-            {myColor == "b" ? players.blackPlayer : players.whitePlayer}
-          </div>
-          <div className="text-white">
-            {isMyTurn ? "Yout Turn" : "Opponents Turn"}
+          <div className="flex justify-between py-2">
+            <div className="text-white">
+              <div className="flex">
+                <img
+                className="mr-4"
+                  alt="Guest0743251690"
+                  src={`https://www.chess.com/bundles/web/images/${myColor == "b" ? "black" : "white"}_400.png`}
+                  width="40"
+                  height="40"
+                />
+              {myColor == "b" ? players.blackPlayer : players.whitePlayer}
+              </div>
+            </div>
+            <div className="text-white">
+              {isMyTurn ? "Yout Turn" : "Opponents Turn"}
+            </div>
           </div>
         </div>
       </>
