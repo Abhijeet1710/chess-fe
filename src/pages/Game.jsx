@@ -41,7 +41,7 @@ export default function Game() {
   const [player1TimeConsumed, setPlayer1TimeConsumed] = useState(0);
   const [player2TimeConsumed, setPlayer2TimeConsumed] = useState(0);
 
-  const [movesToShow, setMovesToShow] = useState([])
+  const [movesToShow, setMovesToShow] = useState([]);
 
   useEffect(() => {
     if (!user) {
@@ -94,15 +94,17 @@ export default function Game() {
                   to: move.to,
                   promotion: "q",
                 });
-                setMovesToShow([...movesToShow, {
+                setMovesToShow([
+                  ...movesToShow,
+                  {
                   from: move.from,
                   to: move.to,
                   promotion: "q",
-                }])
-
+                  },
+                ]);
               } else {
                 // setMovesToShow([...movesToShow, { from: move.from, to: move.to }])
-                movesToShow.push({ from: move.from, to: move.to })
+                movesToShow.push({ from: move.from, to: move.to });
                 chess.move({ from: move.from, to: move.to });
               }
               setChess(chess);
@@ -209,7 +211,6 @@ export default function Game() {
                 <div
                   className="font-bold text-white text-4xl bg-green-500 px-24 py-8 rounded cursor-pointer"
                   onClick={() => {
-                    console.log("UserName", user.userName);
                     sendEvent(socket, INIT, { userName: user.userName });
                   }}
                 >
@@ -232,10 +233,12 @@ export default function Game() {
           />
         )}
       </div>
+      { movesToShow.length > 0 &&
       <div className="px-6 md:bg-[#302F2A] md:px-2 text-white">
         <h1 className="my-3">Moves</h1>
-        <ShowMoves moves={movesToShow}/>
+          <ShowMoves moves={movesToShow} />
       </div>
+      }
     </div>
   );
 }
